@@ -3,7 +3,7 @@ import asyncio
 from telegram.ext import ApplicationBuilder
 
 TOKEN = "7985602713:AAFkmSXChVV2783FiHKbCkhm4Vd2jl-MaiQ"
-CHAT_ID = "5927558862"
+CHAT_ID = "7985602713"
 API_URL = "https://lc79md5-lun8.onrender.com/lc79md5"
 
 history = []
@@ -128,9 +128,10 @@ async def bot_loop(app):
 
 async def main():
     app = ApplicationBuilder().token(TOKEN).build()
-    asyncio.create_task(bot_loop(app))
     await app.initialize()
     await app.start()
-    await asyncio.Event().wait()
+    await bot_loop(app)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
+
