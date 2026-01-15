@@ -2,16 +2,18 @@ import requests
 import asyncio
 from telegram.ext import ApplicationBuilder
 
+# ====== THAY TOKEN VÀ CHAT_ID ======
 TOKEN = "7985602713:AAFkmSXChVV2783FiHKbCkhm4Vd2jl-MaiQ"
 CHAT_ID = "7985602713"
 API_URL = "https://lc79md5-lun8.onrender.com/lc79md5"
 
+# ====== BIẾN TOÀN CỤC ======
 history = []
 last_phien = None
 last_prediction = None
-
 total = win = lose = lose_streak = 0
 
+# ====== PHÂN TÍCH CẦU ======
 def analyze_cau(hist):
     score = 0
     pred = None
@@ -46,6 +48,7 @@ def analyze_cau(hist):
 
     return pred, score, decision, "\n".join(details)
 
+# ====== VÒNG LẶP BOT ======
 async def bot_loop(app):
     global last_phien, last_prediction
     global total, win, lose, lose_streak
@@ -126,12 +129,13 @@ async def bot_loop(app):
 
         await asyncio.sleep(60)
 
+# ====== MAIN ======
 async def main():
     app = ApplicationBuilder().token(TOKEN).build()
+    asyncio.create_task(bot_loop(app))
     await app.initialize()
     await app.start()
-    await bot_loop(app)
+    await asyncio.Event().wait()
 
 if __name__ == "__main__":
     asyncio.run(main())
-
